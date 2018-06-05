@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div class="card">
+      <h2>Sign In/ Sign Up </h2>
       <div id="firebaseuiAuthContainer"></div>
       <div id="loader"><span>Loading...</span></div>
     </div>
@@ -43,6 +44,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             type: Object,
             value: {},
           },
+          redirectPath: {
+            type: String,
+            value: '',
+          }
         }
       }
 
@@ -66,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             },
             // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
             signInFlow: 'popup',
-            signInSuccessUrl: './public/main-page.html',
+            signInSuccessUrl: self.redirectPath,
             signInOptions: [
               // Leave the lines as is for the providers you want to offer your users.
               firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -84,14 +89,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         firebase.auth().onAuthStateChanged((user) => {
           if (user) {
             // User is signed in.
-            let displayName = user.displayName;
-            let email = user.email;
-            let emailVerified = user.emailVerified;
-            let photoURL = user.photoURL;
-            let isAnonymous = user.isAnonymous;
-            let uid = user.uid;
-            let providerData = user.providerData;
-            console.log(displayName + email + emailVerified + photoURL + isAnonymous + uid + providerData);
+            this.dispatchEvent(new CustomEvent('login', {
+                bubbles: true,
+                composed: true,
+                detail: user
+            }));
           } else {
             // User is signed out.
             // ...
