@@ -1,0 +1,105 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view1">
+  <template>
+    <link type="text/css" rel="stylesheet" href="../bower_components/firebaseui/dist/firebaseui.css" />
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+
+    <div class="card">
+      <div id="firebaseuiAuthContainer"></div>
+      <div id="loader"><span>Loading...</span></div>
+    </div>
+
+  </template>
+  <script src="../bower_components/firebaseui/dist/firebaseui.js"></script>
+  <script>
+    class MyView1 extends Polymer.Element {
+      static get is() { return 'my-view1'; }
+
+      static get properties() {
+        return {
+          uiConfig: { // ui configuraton
+            type: Object,
+            value: {},
+          },
+          ui: { // ui instance of firebase auth
+            type: Object,
+            value: {},
+          },
+        }
+      }
+
+      ready() { // wen web component is all ready calls configs
+        super.ready();
+        let self = this; // this of class root
+        this.set('uiConfig', // ui configuration
+          {
+            callbacks: {
+              signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                // User successfully signed in.
+                // Return type determines whether we continue the redirect automatically
+                // or whether we leave that to developer to handle.
+                return true;
+              },
+              uiShown: function() {
+                // The widget is rendered.
+                // Hide the loader.
+                self.$.loader.style.display = 'none';
+              }
+            },
+            // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+            signInFlow: 'popup',
+            signInSuccessUrl: './public/main-page.html',
+            signInOptions: [
+              // Leave the lines as is for the providers you want to offer your users.
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+              firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+              firebase.auth.EmailAuthProvider.PROVIDER_ID,
+              firebase.auth.PhoneAuthProvider.PROVIDER_ID
+            ],
+          }
+        );
+        // inizilize my auth firebase ui
+        this.set('ui', new firebaseui.auth.AuthUI(firebase.auth()));
+        this.ui.start(this.$.firebaseuiAuthContainer, this.uiConfig);
+
+        // this observer check the login staate
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            // User is signed in.
+            let displayName = user.displayName;
+            let email = user.email;
+            let emailVerified = user.emailVerified;
+            let photoURL = user.photoURL;
+            let isAnonymous = user.isAnonymous;
+            let uid = user.uid;
+            let providerData = user.providerData;
+            console.log(displayName + email + emailVerified + photoURL + isAnonymous + uid + providerData);
+          } else {
+            // User is signed out.
+            // ...
+          }
+        });
+      }
+    }
+
+    window.customElements.define(MyView1.is, MyView1);
+  </script>
+</dom-module>
