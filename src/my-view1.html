@@ -10,7 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
-
 <dom-module id="my-view1">
   <template>
     <link type="text/css" rel="stylesheet" href="../bower_components/firebaseui/dist/firebaseui.css" />
@@ -27,9 +26,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div id="firebaseuiAuthContainer"></div>
       <div id="loader"><span>Loading...</span></div>
     </div>
-
   </template>
   <script src="../bower_components/firebaseui/dist/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="../bower_components/firebaseui/dist/firebaseui.css" />
   <script>
     class MyView1 extends Polymer.Element {
       static get is() { return 'my-view1'; }
