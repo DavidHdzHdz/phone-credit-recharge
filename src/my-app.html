@@ -191,23 +191,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       * ui orquester
       */
       renderStarterTemplate() { // render template get localStorage items to render elments
-        this.$.signOutToolbar.classList.add('hide');
-        localStorage.setItem('signOutToolbar', 'hide');
+        if (localStorage.getItem('renderStarterTemplateSet')==='true') {
+          this.$.signOutToolbar.classList.add('hide');
+          localStorage.setItem('signOutToolbar', 'hide');
 
-        this.$.signOutDrawer.classList.add('hide');
-        localStorage.setItem('signOutDrawer', 'hide');
+          this.$.signOutDrawer.classList.add('hide');
+          localStorage.setItem('signOutDrawer', 'hide');
 
-        this.$.viewTwo.classList.add('hide');
-        localStorage.setItem('viewTwo', 'hide');
+          this.$.viewTwo.classList.add('hide');
+          localStorage.setItem('viewTwo', 'hide');
 
-        this.$.viewThree.classList.add('hide');
-        localStorage.setItem('viewThree', 'hide');
+          this.$.viewThree.classList.add('hide');
+          localStorage.setItem('viewThree', 'hide');
 
-        localStorage.setItem('SignInView', 'visible');
+          localStorage.setItem('SignInView', 'visible');
+        }
         console.log(localStorage);
       }
 
       SignInUi() {
+
         this.$.signOutToolbar.classList.remove('hide');
         localStorage.setItem('signOutToolbar', 'visible');
 
@@ -222,7 +225,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         this.$.SignInView.classList.add('hide');
         localStorage.setItem('SignInView', 'hide');
+
+        localStorage.setItem('renderStarterTemplateSet', 'false');
         console.log(localStorage);
+
       }
 
       SignOutUi() {
@@ -240,6 +246,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         this.$.SignInView.classList.remove('hide');
         localStorage.setItem('SignInView', 'visible');
+
+        localStorage.setItem('renderStarterTemplateSet', 'true');
         console.log(localStorage);
       }
       /**
