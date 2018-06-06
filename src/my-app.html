@@ -164,10 +164,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       connectedCallback() {
         super.connectedCallback();
         this.renderStarterTemplate();
+
       }
 
       ready() {
         super.ready();
+
       }
 
       /**
@@ -191,64 +193,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       * ui orquester
       */
       renderStarterTemplate() { // render template get localStorage items to render elments
-        if (localStorage.getItem('renderStarterTemplateSet')==='true') {
+        console.log(localStorage.getItem('renderStarterTemplateSet'));
+        console.log(localStorage.getItem('renderStarterTemplateSetwdeeer'));
+        if (localStorage.getItem('renderStarterTemplateSet')==='false') {
+          this.$.signOutToolbar.classList.remove('hide');
+          this.$.signOutDrawer.classList.remove('hide');
+          this.$.viewTwo.classList.remove('hide');
+          this.$.viewThree.classList.remove('hide');
+          this.$.SignInView.classList.add('hide');
+        }
+        else {
           this.$.signOutToolbar.classList.add('hide');
-          localStorage.setItem('signOutToolbar', 'hide');
-
           this.$.signOutDrawer.classList.add('hide');
-          localStorage.setItem('signOutDrawer', 'hide');
-
           this.$.viewTwo.classList.add('hide');
-          localStorage.setItem('viewTwo', 'hide');
-
           this.$.viewThree.classList.add('hide');
-          localStorage.setItem('viewThree', 'hide');
-
-          localStorage.setItem('SignInView', 'visible');
+          this.$.SignInView.classList.remove('hide');
         }
         console.log(localStorage);
       }
 
       SignInUi() {
-
-        this.$.signOutToolbar.classList.remove('hide');
-        localStorage.setItem('signOutToolbar', 'visible');
-
-        this.$.signOutDrawer.classList.remove('hide');
-        localStorage.setItem('signOutDrawer', 'visible');
-
-        this.$.viewTwo.classList.remove('hide');
-        localStorage.setItem('viewTwo', 'visible');
-
-        this.$.viewThree.classList.remove('hide');
-        localStorage.setItem('viewThree', 'visible');
-
-        this.$.SignInView.classList.add('hide');
-        localStorage.setItem('SignInView', 'hide');
-
         localStorage.setItem('renderStarterTemplateSet', 'false');
-        console.log(localStorage);
-
       }
 
       SignOutUi() {
-        this.$.signOutToolbar.classList.add('hide');
-        localStorage.setItem('signOutToolbar', 'hide');
-
-        this.$.signOutDrawer.classList.add('hide');
-        localStorage.setItem('signOutDrawer', 'hide');
-
-        this.$.viewTwo.classList.add('hide');
-        localStorage.setItem('viewTwo', 'hide');
-
-        this.$.viewThree.classList.add('hide');
-        localStorage.setItem('viewThree', 'hide');
-
-        this.$.SignInView.classList.remove('hide');
-        localStorage.setItem('SignInView', 'visible');
-
         localStorage.setItem('renderStarterTemplateSet', 'true');
-        console.log(localStorage);
+        this.connectedCallback();
+        this.set('page', 'view1');
       }
       /**
       * App Layout methods and treatement.
