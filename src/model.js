@@ -8,5 +8,17 @@ const config = {
 };
 
 const myApp = firebase.initializeApp(config);
+const db = firebase.firestore();
+const settings = {/* your settings... */ timestampsInSnapshots: true};
+db.settings(settings);
 
 console.log(myApp.name);
+
+// getters
+const getUserss = () => {
+  db.collection("people").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+    });
+  });
+}
