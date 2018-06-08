@@ -17,20 +17,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+      }
+      .info-form {
+
+      }
+      .add-contact {
+
+      }
+      .buttons {
+        display: flex;
+        justify-content: flex-end;
       }
     </style>
     <slot></slot>
     <div class="card">
     <h2>Info of account</h2>
-    <div><small>insert info to continue</small></div>
-    <paper-input label="name & last name"></paper-input>
-    <paper-input label="bank account number"></paper-input>
-    <paper-input label="phone number 1"></paper-input>
-    <paper-input label="phone number 2 (optional)"></paper-input>
-    <paper-button class="custom--blue" raised>Añadir Contactos</paper-button>
-    <paper-button class="custom--blue" raised>Continuar</paper-button>
+    <div class="info-form">
+      <div><small>insert info to continue</small></div>
+      <paper-input label="name & last name"></paper-input>
+      <paper-input label="bank account number"></paper-input>
+      <paper-input label="phone number 1"></paper-input>
+      <paper-input label="phone number 2 (optional)"></paper-input>
+    </div>
+    <div class="add-contact">
+      <paper-input label="name & last name"></paper-input>
+      <paper-input label="phone number"></paper-input>
+      <paper-input label="email (optional)"></paper-input>
+    </div>
+    <div class="buttons">
+      <paper-button class="custom--blue" raised>Add Contacts</paper-button>
+      <paper-button class="custom--green" raised>Continue</paper-button>
+    </div>
 
 
 
