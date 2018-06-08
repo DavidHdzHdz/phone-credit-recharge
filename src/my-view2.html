@@ -10,7 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
-
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <dom-module id="my-view2">
   <template>
     <style include="shared-styles">
@@ -22,11 +23,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
     <slot></slot>
     <div class="card">
-      <div class="circle">2</div>
-      <h1>View Two</h1>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.</p>
-      <p>Id nam odio natum malorum, tibique copiosae expetenda mel ea.Detracto suavitate repudiandae no eum. Id adhuc minim soluta nam.Id nam odio natum malorum, tibique copiosae expetenda mel ea.</p>
-    </div>
+    <h2>Info of account</h2>
+    <div><small>insert info to continue</small></div>
+    <paper-input label="name & last name"></paper-input>
+    <paper-input label="bank account number"></paper-input>
+    <paper-input label="phone number 1"></paper-input>
+    <paper-input label="phone number 2 (optional)"></paper-input>
+    <paper-button class="custom--blue" raised>Añadir Contactos</paper-button>
+    <paper-button class="custom--blue" raised>Continuar</paper-button>
+
+
+
   </template>
 
   <script>

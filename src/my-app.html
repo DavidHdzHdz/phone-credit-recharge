@@ -101,7 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed narrow="{{narrow}}">
       <!-- Drawer content -->
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-        <app-toolbar>V pet menu</app-toolbar>
+        <app-toolbar>menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a id="SignInView" name="view1" href="[[rootPath]]view1">View One</a>
           <a id="viewTwo" name="view2" href="[[rootPath]]view2">View Two</a>
@@ -116,7 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>My App</div>
+            <div main-title><b>Phone credit app </b><span style="font-size: 10px;"> by DAHH Softtek</span></div>
             <paper-icon-button id="signOutToolbar"icon="subdirectory-arrow-right" alt="sign out" title="sign out" on-click="signOut">sign out</paper-icon-button>
           </app-toolbar>
         </app-header>

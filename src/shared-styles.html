@@ -40,6 +40,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #212121;
         font-size: 22px;
       }
+
+      paper-button.custom--blue {
+        --paper-button-ink-color: var(--paper-pink-a200);
+         /* These could also be individually defined for each of the
+         specific css classes, but we'll just do it once as an example */
+        --paper-button-flat-keyboard-focus: {
+          background-color: var(--paper-pink-a200);
+          color: white !important;
+        };
+        background-color: var(--paper-indigo-500);
+        color: white;
+        --paper-button-raised-keyboard-focus: {
+          background-color: var(--paper-pink-a200) !important;
+          color: white !important;
+        };
+      }
+      paper-button.custom--blue:hover {
+        background-color: var(--paper-indigo-100);
+      }
+
     </style>
   </template>
 </dom-module>
