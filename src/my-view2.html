@@ -20,34 +20,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
       .info-form {
-
+        border-radius: 5px;
+        border: 1px solid #3F51B5;
+        padding: 0 10px 10px 10px;
+        margin-bottom: 10px;
       }
       .add-contact {
-
+        border-radius: 5px;
+        border: 1px solid #3F51B5;
+        padding: 0 10px 10px 10px;
+        margin-bottom: 10px;
       }
       .buttons {
         display: flex;
         justify-content: flex-end;
       }
+
+      .hide {
+        display: none !important;
+      }
     </style>
     <slot></slot>
     <div class="card">
     <h2>Info of account</h2>
+    <small><span id="mesageUserVal" class="hide" style="color: red;">name & bank account & phone are obligatory , phone & bank account must be numberic</span></small>
     <div class="info-form">
       <div><small>insert info to continue</small></div>
-      <paper-input label="name & last name"></paper-input>
-      <paper-input label="bank account number"></paper-input>
-      <paper-input label="phone number 1"></paper-input>
-      <paper-input label="phone number 2 (optional)"></paper-input>
+      <paper-input id="userName" label="name & last name"></paper-input>
+      <paper-input id="userBankAccount" label="bank account number"></paper-input>
+      <paper-input id="userPhone1" label="phone number 1"></paper-input>
+      <paper-input id="userPhone2" label="phone number 2 (optional)"></paper-input>
+      <paper-input id="userEmail" label="email (optional)"></paper-input>
     </div>
-    <div class="add-contact">
-      <paper-input label="name & last name"></paper-input>
-      <paper-input label="phone number"></paper-input>
-      <paper-input label="email (optional)"></paper-input>
+    <small><span id="mesageContactVal" class="hide" style="color: red;">name & phone are obligatory, phone must be a number</span></small>
+    <div id="addContacts" class="add-contact">
+      <div><small>Contact <b> #[[contactsSum]]</b></small></div>
+      <paper-input id="contactName" label="name & last name"></paper-input>
+      <paper-input id="contactPhone" label="phone number"></paper-input>
+      <paper-input id="contactEmail" label="email (optional)"></paper-input>
     </div>
     <div class="buttons">
-      <paper-button class="custom--blue" raised>Add Contacts</paper-button>
-      <paper-button class="custom--green" raised>Continue</paper-button>
+      <paper-button id="addContactsButton" class="custom--blue" on-click="addContacts" raised>Add Contact</paper-button>
+      <paper-button class="custom--green" on-click="saveAndContinue" raised>Continue</paper-button>
     </div>
 
 
@@ -57,6 +71,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class MyView2 extends Polymer.Element {
       static get is() { return 'my-view2'; }
+      static get properties() {
+        return {
+          contactsSum: {
+            type: Number,
+            value: 0,
+          },
+          userProfile: {
+            type: Object,
+          },
+          userContacts: {
+            type: Array,
+            value: [],
+          },
+        }
+      }
+      connectedCallback() {
+        super.connectedCallback();
+        this.$.addContacts.classList.add('hide');
+      }
+      addContacts() {
+        if (this.$.contactName.value && this.$.contactPhone.value && !isNaN(parseInt(this.$.contactPhone.value))) {
+          if (this.contactsSum > 0) {
+            let contact = {};
+            contact['name'] = this.$.contactName.value;
+            contact['phone'] = this.$.contactPhone.value;
+            this.$.contactEmail.value ? contact['mail'] = this.$.contactEmail.value : null;
+            this.$.contactName.value = '';
+            this.$.contactPhone.value = '';
+            this.$.contactEmail.value = '';
+            this.$.mesageContactVal.classList.add('hide');
+            this.userContacts.push(contact)
+            console.log(this.userContacts);
+          }
+        }
+        else if(this.contactsSum > 0) {
+          this.$.mesageContactVal.classList.remove('hide');
+          this.contactsSum > 0 ? this.set('contactsSum', this.contactsSum -= 1) : null;
+        }
+        this.set('contactsSum', this.contactsSum += 1);
+        this.$.addContacts.classList.remove('hide');
+        this.$.addContactsButton.textContent = 'Add other contact';
+      }
+
+      saveAndContinue() {
+        if (this.$.userName.value && this.$.userBankAccount.value && this.$.userPhone1.value
+          && !isNaN(parseInt(this.$.userPhone1.value)) && !isNaN(parseInt(this.$.userBankAccount.value))) {
+          console.log('SAVE DATA');
+        }
+        else {
+          this.$.mesageUserVal.classList.remove('hide');
+        }
+      }
+
     }
 
     window.customElements.define(MyView2.is, MyView2);
