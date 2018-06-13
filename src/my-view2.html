@@ -127,9 +127,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.userEmail.value ? this.userProfile['mail'] = this.$.userEmail.value: null;
           this.userProfile['contacts'] = this.userContacts;
           localStorage.setItem('userProfile', JSON.stringify(this.userProfile));
-
+          console.log(window.location.host);
+          window.location.assign('view3');
           /**
-          * Window location page change 
+          * Window location page change
           */
           console.log(localStorage);
         }
