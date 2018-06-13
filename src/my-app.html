@@ -179,7 +179,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       */
       onSignIn(ev) {
         console.log(ev.detail);
-        localStorage.setItem('userData', ev.detail);
+        localStorage.setItem('userData', JSON.stringify(ev.detail));
         this.SignInUi();
       }
 

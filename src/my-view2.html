@@ -79,6 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           userProfile: {
             type: Object,
+            value: {},
           },
           userContacts: {
             type: Array,
@@ -118,6 +119,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (this.$.userName.value && this.$.userBankAccount.value && this.$.userPhone1.value
           && !isNaN(parseInt(this.$.userPhone1.value)) && !isNaN(parseInt(this.$.userBankAccount.value))) {
           console.log('SAVE DATA');
+          this.userProfile['uid'] =  JSON.parse(localStorage.getItem('userData')).uid;
+          this.userProfile['name'] = this.$.userName.value;
+          this.userProfile['bankAccount'] = this.$.userBankAccount.value;
+          this.userProfile['mainPhone'] = this.$.userPhone1.value;
+          this.$.userPhone2.value ? this.userProfile['secundaryPhone'] = this.$.userPhone2.value : null;
+          this.$.userEmail.value ? this.userProfile['mail'] = this.$.userEmail.value: null;
+          this.userProfile['contacts'] = this.userContacts;
+          localStorage.setItem('userProfile', JSON.stringify(this.userProfile));
+
+          /**
+          * Window location page change 
+          */
+          console.log(localStorage);
         }
         else {
           this.$.mesageUserVal.classList.remove('hide');
