@@ -16,22 +16,120 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+      }
+
+      .my-phone {
+        display: flex;
+      }
+      .my-phone__logo {
+        display: inline-block;
+        padding: 10px 5px 5px 5px;
+        margin-left: 5px;
+        border: 1px solid blue;
+        border-radius: 50%;
+      }
+      .my-phone__info {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .new-phone {
+        display: flex;
+      }
+      .new-phone__logo {
+        display: inline-block;
+        padding: 10px 5px 10px 5px;
+        margin-left: 2px;
+        border: 1px solid pink;
+        border-radius: 50%;
+      }
+      .new-phone__text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .contact {
+        display: flex;
+        border-bottom: 1px solid #CCC;
+      }
+      .contact__logo {
+        display: inline;
+        margin-left: 5px;
+      }
+      .contact__info {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
       }
     </style>
 
     <div class="card">
-      <div class="circle">3</div>
-      <h1>View Three</h1>
-      <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
-      <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
+      <h2 style="margin-bottom: 0 !important;"> Credit recharge</h2>
+      <div class="main">
+        <div class="my-phone">
+          <figure class="my-phone__logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Emoji_u1f4f1.svg/2000px-Emoji_u1f4f1.svg.png"
+            width="50px"
+            height="50px"
+            alt="myphone" />
+          </figure>
+          <div class="my-phone__info">
+            <span>my phone number</span>
+            <span>{{userData.mainPhone}}</span>
+          </div>
+        </div>
+        <div class="new-phone">
+          <figure class="new-phone__logo">
+            <img src="https://cdn.iconscout.com/public/images/icon/premium/png-512/add-smartphone-phone-communication-interaction-3e859cef919ccd11-512x512.png"
+            width="50px"
+            height="50px"
+            style="margin-left: 8px;"
+            alt="other number" />
+          </figure>
+          <div class="new-phone__text">
+            new phone number
+          </div>
+        </div>
+        <h4 style="margin-bottom: 0;"> contacts saved</h4>
+        <dom-repeat items="{{userData.contacts}}" index-as="index">
+          <template>
+            <div class="contact">
+              <figure class="contact__logo">
+                <img src="https://i2.wp.com/ausdroid.net/wp-content/uploads/2017/05/contacts.png"
+                width="70px"
+                height="70px"
+                alt="contact-img">
+              </figure>
+              <div class="contact__info">
+                <span>{{item.name}}</span>
+                <span>{{item.phone}}</span>
+              </div>
+            </div>
+          </template>
+        </dom-repeat>
+      </div>
     </div>
   </template>
 
   <script>
     class MyView3 extends Polymer.Element {
       static get is() { return 'my-view3'; }
+      static get properties() {
+        return {
+          userData: {
+            type: Object,
+            reflectToAttribute: true,
+            notify: true,
+            observer: 'getUserData',
+          }
+        }
+      }
+      getUserData() {
+        console.log(this.userData);
+      }
     }
 
     window.customElements.define(MyView3.is, MyView3);
