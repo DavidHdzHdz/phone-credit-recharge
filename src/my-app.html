@@ -130,7 +130,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <my-view2 name="view2">
             <button type="button" name="button" on-click="getUsers">getUsers</button>
           </my-view2>
-          <my-view3 name="view3" user-data="{{userProfile}}"></my-view3>
+          <my-view3 name="view3" user-data="{{userProfile}}" companies-data="{{telecomCompanies}}"></my-view3>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -152,6 +152,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             observer: '_pageChanged',
           },
           userProfile: Object,
+          telecomCompanies: Object,
           routeData: Object,
           subroute: Object,
           // This shouldn't be neccessary, but the Analyzer isn't picking up
@@ -220,8 +221,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       * App Layout methods and treatement.
       */
       setDataToCreditComponent() {
-        console.log('this func works');
         localStorage.getItem('userProfile') ? this.userProfile = JSON.parse(localStorage.getItem('userProfile')) : null;
+        getCompanies();
+        this.telecomCompanies = companies;
       }
 
       /* Routes methods */
